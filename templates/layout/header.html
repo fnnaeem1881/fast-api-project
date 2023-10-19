@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edukon</title>
+    <link rel="shortcut icon" href="assets/images/x-icon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/icofont.min.css">
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/lightcase.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- preloader start here -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- preloader ending here -->
+
+
+    <!-- scrollToTop start here -->
+    <a href="#" class="scrollToTop"><i class="icofont-rounded-up"></i></a>
+    <!-- scrollToTop ending here -->
+
+    <!-- header section start here -->
+    <header class="header-section style-3">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-area">
+                    <div class="header-top-contact">
+                        <a href="#" class="lab-btn"><span>For Your Question</span></a>
+                        <a href="tel:+880123456789">+880 123 456 789</a>
+                        <a href="mailto:contact@yourmail.com">contact@yourmail.com</a>
+                    </div>
+                    <div class="header-top-reglog">
+                        <a href="login" class="login  {% if request.url.path == '/login' %}active{% endif %}">Login</a>
+                        <a href="register"
+                            class="signup {% if request.url.path == '/register' %}active{% endif %}">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="header-wrapper">
+                    <div class="logo-search-acte">
+                        <div class="logo">
+                            <a href="/"><img src="assets/images/logo/01.png" alt="logo"></a>
+                        </div>
+                    </div>
+                    <div class="menu-area">
+                        <div class="menu">
+                            <ul class="lab-ul">
+                                <li class=" {% if request.url.path == '/' %}active{% endif %}">
+                                    <a href="/">Home</a>
+                                </li>
+
+                                <li>
+                                    <a href="#0">Courses</a>
+
+                                </li>
+                                <li>
+                                    <a href="#0">Blog</a>
+
+                                </li>
+                                <li>
+                                    <a href="#0">Pages</a>
+                                    <ul class="lab-ul">
+                                        <li><a href="about">About</a></li>
+                                        <li><a href="team">Team</a></li>
+                                        <li><a href="instructor">Instructor</a></li>
+                                        <li>
+                                            <a href="#0">Shop Pages</a>
+                                            <ul class="lab-ul">
+                                                <li><a href="shop">Shop Page</a></li>
+                                                <li><a href="shop-single">Shop Details Page</a></li>
+                                                <li><a href="cart-page">Shop Cart Page</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="search-page">Search Page</a></li>
+                                        <li><a href="search-none">Search None</a></li>
+                                        <li><a href="404">404</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact">Contact</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="search-icon">
+                            <i class="icofont-search"></i>
+                        </div>
+
+                        <!-- toggle icons -->
+                        <div class="header-bar d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="ellepsis-bar d-lg-none">
+                            <i class="icofont-info-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header section ending here -->

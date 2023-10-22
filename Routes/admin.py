@@ -32,10 +32,10 @@ async def dashboard(request: Request):
     if user:
         email = user['email']
         user_data = await  get_user_by_email(email)
-        
-        if user_data:
-            print(f"User data: {user_data}")
+        if user_data and user_data.role == 'admin':
             return templates.TemplateResponse("admin/index.html", {"request": request, "user": user_data})
+        elif  user_data and user_data.role == 'user':
+            return RedirectResponse("/")
         else:
             return HTTPException(status_code=302, detail="Not authenticated", headers={"Location": "/login?error=Not+authenticated"})
     else:

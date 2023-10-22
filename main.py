@@ -18,11 +18,8 @@ app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
 app.mount("/backend", StaticFiles(directory="templates/assets/backend"), name="assets")
 
 
-user_route = APIRouter()
-admin_route = APIRouter()
 
-
-@app.get("/", response_class=HTMLResponse)
+@app.route("/", methods=["GET", "POST"])
 async def read_root(request: Request):
     token = request.cookies.get("session_token")
     error_message = request.query_params.get("error")

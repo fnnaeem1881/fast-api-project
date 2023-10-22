@@ -38,18 +38,18 @@ async def login(request: Request):
 async def login(email: str = Form(...), password: str = Form(...)):
     user = await database.fetch_one("SELECT * FROM users WHERE email = :email", values={"email": email})
 
-    if pwd_context.verify(password,user["password"]):
-    # if user is None or user["password"] != password:
-    #     return RedirectResponse("/login?error=Invalid+credentials")
-        session_token = generate_session_token(user) 
-        dhaka_tz = pytz.timezone('Asia/Dhaka')
+    if user is not None:
+        if pwd_context.verify(password,user["password"]):
+        #     return RedirectResponse("/login?error=Invalid+credentials")
+            session_token = generate_session_token(user) 
+            dhaka_tz = pytz.timezone('Asia/Dhaka')
 
-        expires = datetime.now(timezone.utc) + timedelta(hours=1)
-        expires = expires.astimezone(dhaka_tz) 
-        formatted_expires = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
-        response = RedirectResponse("/dashboard?success=Login+successfully")
-        response.set_cookie(key="session_token", value=session_token, expires=formatted_expires)
-        return response
+            expires = datetime.now(timezone.utc) + timedelta(hours=1)
+            expires = expires.astimezone(dhaka_tz) 
+            formatted_expires = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
+            response = RedirectResponse("/dashboard?success=Login+successfully")
+            response.set_cookie(key="session_token", value=session_token, expires=formatted_expires)
+            return response
     return RedirectResponse("/login?error=Invalid+credentials")
 
 

@@ -18,7 +18,14 @@ async def startup_db():
 @admin.on_event("shutdown")
 async def shutdown_db():
     await close_database_connection()
-    
+
+async def check_role(user_data,request):
+    if user_data and user_data.role == 'admin':
+        return templates.TemplateResponse("admin/index.html", {"request": request, "user": user_data})
+    elif  user_data and user_data.role == 'user':
+        return RedirectResponse("/")
+    else:
+        return HTTPException(status_code=302, detail="Not authenticated", headers={"Location": "/login?error=Not+authenticated"})
 
 async def get_user_by_email(email):
     user = await database.fetch_one("SELECT * FROM users WHERE email = :email", values={"email": email})
@@ -28,15 +35,10 @@ async def get_user_by_email(email):
 async def dashboard(request: Request):
     token = request.cookies.get("session_token")
     user = get_current_user(token)
-    print(f"User data: {user}")
     if user:
         email = user['email']
         user_data = await  get_user_by_email(email)
-        if user_data and user_data.role == 'admin':
-            return templates.TemplateResponse("admin/index.html", {"request": request, "user": user_data})
-        elif  user_data and user_data.role == 'user':
-            return RedirectResponse("/")
-        else:
-            return HTTPException(status_code=302, detail="Not authenticated", headers={"Location": "/login?error=Not+authenticated"})
+        check_role_result = await check_role(user_data, request)
+        return check_role_result
     else:
         return HTTPException(status_code=302, detail="Not authenticated", headers={"Location": "/login?error=Not+authenticated"})

@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse,Response
 from db_config import database, connect_to_database, close_database_connection
 from Routes.token_key import generate_session_token, get_user_from_session_token,get_current_user
+from Routes.admin import get_user_by_email
 from datetime import datetime, timedelta, timezone
 import pytz
 from passlib.context import CryptContext
@@ -74,6 +75,9 @@ async def register(
     if password != confirm_password:
         return RedirectResponse("/register?error=Passwords+do+not+match")
     
+    existing_user = await get_user_by_email(email)
+    if existing_user:
+        return RedirectResponse("/register?error=Email+already+exists")
     hashed_password = pwd_context.hash(password)
     query = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)"
     values = {"username": username, "password": hashed_password, "email": email}

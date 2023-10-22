@@ -45,9 +45,18 @@
                         <a href="mailto:contact@yourmail.com">contact@yourmail.com</a>
                     </div>
                     <div class="header-top-reglog">
-                        <a href="login" class="login  {% if request.url.path == '/login' %}active{% endif %}">Login</a>
-                        <a href="register"
-                            class="signup {% if request.url.path == '/register' %}active{% endif %}">Register</a>
+                        {% if user %}
+                            <a href="dashboard"> Hi {{ user.username }}</a>
+                            <form id="logoutForm" action="/logout" method="post" style="display:none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </form>
+                            <a href="#" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                        {% else %}
+                            <a href="login" class="login  {% if request.url.path == '/login' %}active{% endif %}">Login</a>
+                            <a href="register"
+                                class="signup {% if request.url.path == '/register' %}active{% endif %}">Register</a>
+                        {% endif %}
+                       
                     </div>
                 </div>
             </div>
